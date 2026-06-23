@@ -25,7 +25,7 @@ class VideoTags extends HTMLElement {
                 background-size: cover;
                 padding: 3px 8px;
                 border-radius: 4px;
-                font-size: 7px;
+                font-size: 15px;
                 font-weight: bold;
                 color: #FFF;
                 text-align: center;
@@ -90,7 +90,15 @@ function playCurrentVideo(){
 
     mainVideo.style.display = `block`;
     mainVideo.src = playlistData[currentIndex].videoSrc;
-    mainVideo.play();
+    mainVideo.play().catch(error => {
+        if (error.name === 'AbortError') {
+            // Ignore AbortError since it's just a normal side-effect of switching video tracks
+            console.log("Playback safely interrupted for a new video load.");
+        } else {
+            // Log other genuine playback errors (like bad file paths)
+            console.error("Playback failed:", error);
+        }
+    });
 }
 
 mainPlayBtn.addEventListener('click', () => {
@@ -182,6 +190,7 @@ class FinalCardDisplay extends HTMLElement {
                 position: absolute;
                 inset: 55% 30% 33% 10%;
                 font-family: "Tilt Neon";
+                font-size: 2em;
                 font-style: normal;
                 font-weight: 400;
                 line-height: normal;
@@ -190,7 +199,7 @@ class FinalCardDisplay extends HTMLElement {
                 position: absolute;
                 inset: 65% 8% 23% 10%;
                 width: 100%;
-                font-size: 0.5em;
+                font-size: 1em;
                 color: #FFF;
                 font-family: "Tilt Neon";
                 display: flex;
@@ -200,7 +209,7 @@ class FinalCardDisplay extends HTMLElement {
             .final-card-tag{
                 min-width: 45px;
                 position: absolute;
-                inset: 82% 58% 20% 10%;
+                inset: 75% 58% 20% 10%;
                 border-radius: 10px;
                 background: #D9D9D9;
                 border:none;
@@ -211,8 +220,8 @@ class FinalCardDisplay extends HTMLElement {
                 font-weight: 400;
                 line-height: normal;
                 display: flex;
-                font-size: clamp(8px, 0.8vw, 16px);
                 height: 3vh;
+                font-size: 1em;
                 flex-direction: column;
                 justify-content: center;
             }
@@ -326,6 +335,21 @@ document.getElementById('slider-2d').addEventListener('click', () => {
 
 document.getElementById('slider-3d').addEventListener('click', () => {
     manager.switchMode('3d');
+});
+
+const final = document.getElementById('finalfinal');
+const confirms = document.getElementById('confirms');
+
+confirms.addEventListener('click', () => {
+    finalCards.style.display = 'none'
+    final.style.display = 'block';
+
+    setTimeout(function() {
+        
+        final.style.display = 'none';
+        
+        document.getElementById('happy').style.display = 'block';
+    }, 60000);
 });
 
 
