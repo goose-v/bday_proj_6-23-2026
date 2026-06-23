@@ -38,7 +38,7 @@
 
 /* ###video cards### */
 #card-overlay {
-    display: none;
+    display: block;
     position: absolute;
     top: 0;
     left: 0;
@@ -46,7 +46,7 @@
     height: 100vh;
     justify-content: center;
     align-items: center;
-    background: url('media/beat-saber-bg.jpg') rgb(0, 0, 0) 50% / 100% 160%;
+    background: url('../media/beat-saber-bg.jpg') rgb(0, 0, 0) 50% / 100% 160%;
     z-index: 20;
 }
 
@@ -107,7 +107,7 @@
 
 .video-card-bnts {
     height: 10%;
-    padding: 5px;
+    padding: 15px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -117,7 +117,7 @@
     height: 100%;
     aspect-ratio: 1 / 1;
     background-color: transparent;
-    background-image: url('assets/next-button.png');
+    background-image: url('../assets/next-button.png');
     background-size: cover;
     border-radius: 1px;
     background-position: center;
@@ -131,7 +131,7 @@
     aspect-ratio: 1 / 1;
     border-radius: 1px;
     background-color: transparent;
-    background-image: url('assets/replay-button.png');
+    background-image: url('../assets/replay-button.png');
     background-size: cover;
     cursor: pointer;
     border: none;
@@ -163,7 +163,7 @@
     padding: 10px 20px;
     width: 100vw;
     height: 100vh;
-    background: url('media/beat-saber-bg.jpg') rgb(0, 0, 0) 50% / 100% 160%;
+    background: url('../media/beat-saber-bg.jpg') rgb(0, 0, 0) 50% / 100% 160%;
     z-index: 30;
 }
 
@@ -201,13 +201,13 @@
     z-index: 0;
 }
 .bg-rough{
-    background-image: url('assets/slider-2d-bg.svg');
+    background-image: url('../assets/slider-2d-bg.svg');
     background-size: 100% 100%;
     background-position: center;
     opacity: 1;
 }
 .bg-smooth{
-    background-image: url('assets/slider-3d-bg.svg');
+    background-image: url('../assets/slider-3d-bg.svg');
     background-size: 100% 100%;
     background-position: center;
     opacity: 0;
@@ -271,13 +271,14 @@
     font-size: 500px;
 }
 
+/* ###Happy 20th Birthday!!#### */
 #happy {
     display: none;
     z-index: 2000;
     width: 100vw;
     height: 100vh;
-    background-color: black;
-    color: white;
+    background: linear-gradient(1deg,rgba(6, 6, 102, 1) 7%, rgba(0, 212, 255, 1) 57%, rgba(0, 134, 217, 1) 79%, rgba(7, 63, 120, 1) 100%);
+    color: rgb(255, 239, 97);
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 250px;
 }
