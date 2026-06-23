@@ -1,7 +1,7 @@
 [
     {
         "title": "TitanFall 2",
-        "videoSrc": "https://github.com/goose-v/bday_proj_6-23-2026/releases/download/media/titanfall2.mp4",
+        "videoSrc": "https://cdn.jsdelivr.net/gh/goose-v/bday_proj_6-23-2026@main/media/titanfall2.mp4",
         "imageSrc": "media/titanfall2.jpg",
 
         "description": "“Combine & conquer with new titans & pilots, deadlier weapons, & customization and progression systems that help you and your titan flow as one unstoppable killing force.”",
