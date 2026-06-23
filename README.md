@@ -1,5 +1,9 @@
-# Happy 20th Birthday bananaman 🎂
+# Happy 20th Birthday bananaman 🎊
 
-  > dang you are old 👾
+> dang you are old 👾 
 
-  ![banana](assets/banana.png)
+<div align="center">
+
+  <br>
+  <img src="assets/banana.png" />
+</div>
