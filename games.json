@@ -1,8 +1,8 @@
 [
     {
         "title": "TitanFall 2",
-        "videoSrc": "/media/titanfall2.mp4",
-        "imageSrc": "/media/titanfall2.jpg",
+        "videoSrc": "media/titanfall2.mp4",
+        "imageSrc": "media/titanfall2.jpg",
 
         "description": "“Combine & conquer with new titans & pilots, deadlier weapons, & customization and progression systems that help you and your titan flow as one unstoppable killing force.”",
 
@@ -11,8 +11,8 @@
     },
     {
         "title": "Katana ZERO",
-        "videoSrc": "/media/katana_zero.mp4",
-        "imageSrc": "/media/katana_zero.jpg",
+        "videoSrc": "media/katana_zero.mp4",
+        "imageSrc": "media/katana_zero.jpg",
 
         "description": "“Katana ZERO is a stylish neo-noir, action-platformer featuring breakneck action and instant-death combat. Slash, dash, and manipulate time to unravel your past in a beautifully brutal acrobatic display.”",
 
@@ -21,8 +21,8 @@
     },
     {
         "title": "House",
-        "videoSrc": "/media/house.mp4",
-        "imageSrc": "/media/house.jpg",
+        "videoSrc": "media/house.mp4",
+        "imageSrc": "media/house.jpg",
 
         "description": "“Try to survive through the night in a house that's trying its best to kill you and your family.”",
 
@@ -31,8 +31,8 @@
     },
     {
         "title": "Portal 2",
-        "videoSrc": "/media/portal2.mp4",
-        "imageSrc": "/media/portal2.jpg",
+        "videoSrc": "media/portal2.mp4",
+        "imageSrc": "media/portal2.jpg",
 
         "description": "“Set in the mysterious Aperture Science Laboratories,player must solve physical puzzles and challenges by opening portals to maneuvering objects, and themselves, through space.”",
 
@@ -41,8 +41,8 @@
     },
     {
         "title": "Inscryption",
-        "videoSrc": "/media/inscryption.mp4",
-        "imageSrc": "/media/inscryption.jpg",
+        "videoSrc": "media/inscryption.mp4",
+        "imageSrc": "media/inscryption.jpg",
 
         "description": "“An inky black card-based odyssey that blends the deckbuilding roguelike, escape-room style puzzles, and psychological horror into a blood-laced smoothie. Darker still are the secrets inscrybed upon the cards…”",
 
