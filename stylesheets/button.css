@@ -1,4 +1,4 @@
-/* ###begin page### */
+/* ###########begin page########## */
 .begin-page {
     position: absolute;
     z-index: 10;
@@ -24,7 +24,7 @@
 }
 
 
-/* ###video### */
+/* ##########video############# */
 #main-video {
     display: none;
     width: 100vw;
@@ -36,7 +36,7 @@
     z-index: 5;
 }
 
-/* ###video cards### */
+/* ############video cards######### */
 #card-overlay {
     display: none;
     position: absolute;
@@ -53,7 +53,7 @@
 .video-card-container {
     display:flex;
     min-width: 200px;
-    max-width: 80%;
+    max-width: 75%;
     width: 100%;
     height: 70%;
     margin: 15vh 10vw;
@@ -139,6 +139,7 @@
 .video-card-text{
     margin-top: auto;
     margin-left: 15px;
+    margin-right: 30px;
     background-color: transparent;
     padding: 10px;
     display: flex;
@@ -154,10 +155,10 @@
 }
 .video-card-des {
     font-size: 20px;
-    margin: 0 0  10px 0;
+    margin: 0 0 20px 0;
 }
 
-/* ###TOGGLE ON THE FINAL PAGE### */
+/* ############FINAL SELECT################ */
 #final-select {
     display: none;
     padding: 10px 20px;
@@ -168,12 +169,14 @@
 }
 
 .scene-container {
+    display: none;
     width: 200px;
     height: 200px;
     position: absolute;
-    top: 80vh;
-    left: 75vw;
+    top: 83vh;
+    left: 83vw;
     cursor: crosshair;
+    z-index: 30;
 }
 
 .slider{
@@ -252,6 +255,17 @@
     color: #ccc;
 }
 
+#instructions {
+    position: absolute;
+    top: 82vh;
+    right: 5vw;
+    color: white;
+    font-family: "Tilt Neon";
+    font-size: 10px;
+}
+#instructions strong {
+    color: red;
+}
 final-card-manager {
     margin: 10px;
     display: flex; 
@@ -260,7 +274,7 @@ final-card-manager {
 }
 
 
-/* ###finalfinal### */
+/* ###################finalfinal#################### */
 #finalfinal {
     display: none;
     z-index: 1000;
@@ -272,7 +286,7 @@ final-card-manager {
     font-size: 500px;
 }
 
-/* ###Happy 20th Birthday!!#### */
+/* ###########################Happy 20th Birthday!!###################3# */
 #happy {
     display: none;
     z-index: 2000;

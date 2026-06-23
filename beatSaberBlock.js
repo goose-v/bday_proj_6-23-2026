@@ -10,21 +10,23 @@ import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 // 1. Target the specific div
 const container = document.getElementById('confirms');
 
+const width = container.clientWidth || 200;
+const height = container.clientHeight || 200;
+
 // Initialize scene, camera, and renderer
 const scene = new THREE.Scene();
-
-// Use container dimensions, not window dimensions
-const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
 camera.position.set(3, 1.5, -2);
 
 const renderer = new THREE.WebGLRenderer({ 
     antialias: true, 
     powerPreference: "high-performance",
-    alpha: true, // Crucial for transparent background
+    alpha: true, 
 });
 
 // renderer.setClearColor(0x000000, 0); // Transparent clear color
-renderer.setSize(container.clientWidth, container.clientHeight);
+renderer.setClearColor(0x000000, 0); 
+renderer.setSize(width, height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); 
 renderer.outputColorSpace = THREE.SRGBColorSpace; 
 
@@ -33,17 +35,13 @@ container.appendChild(renderer.domElement);
 
 // --- POST PROCESSING SETUP ---
 const renderScene = new RenderPass(scene, camera);
-const bloomPass = new UnrealBloomPass(
-    new THREE.Vector2(container.clientWidth, container.clientHeight),
-    2.5,  // Bloom Strength
-    0.6,  // Bloom Radius
-    0.1   // Bloom Threshold
-);
+const renderTarget = new THREE.WebGLRenderTarget(width, height, { format: THREE.RGBAFormat });
+const alphaRenderTarget = new THREE.WebGLRenderTarget(width, height);
 
-const renderTarget = new THREE.WebGLRenderTarget(
-    container.clientWidth, 
-    container.clientHeight, 
-    { format: THREE.RGBAFormat }
+// And update the bloom pass:
+const bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(width, height),
+    2.5, 0.6, 0.1 
 );
 
 const composer = new EffectComposer(renderer, renderTarget);
@@ -69,8 +67,6 @@ const saveAlphaShader = {
 };
 
 const saveAlphaPass = new ShaderPass(saveAlphaShader);
-// Render this pass to a secondary target so we can read it later
-const alphaRenderTarget = new THREE.WebGLRenderTarget(container.clientWidth, container.clientHeight);
 
 // --- 4. THE FINAL COMBINER SHADER ---
 // This takes the glowing bloom image and re-injects the original saved alpha map

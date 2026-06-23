@@ -1,3 +1,30 @@
+const final = document.getElementById('finalfinal');
+const confirms = document.getElementById('confirms');
+const happy = document.getElementById('happy');
+
+function updateBeatBlock(isSelected) {
+
+    if(isSelected){
+        confirms.style.display = 'block';
+        
+        confirms.addEventListener('sliceComplete', () => {
+            setTimeout(function() {
+                finalCards.style.display = 'none'
+                final.style.display = 'block';
+            }, 1500);
+            
+
+            setTimeout(function() {
+                final.style.display = 'none';
+                happy.style.display = 'block';
+            }, 60000);
+        }, {once: true});
+    } else {
+        confirms.style.display = 'none';
+    }
+
+}
+
 class VideoTags extends HTMLElement {
     constructor(){ 
         super(); 
@@ -16,23 +43,23 @@ class VideoTags extends HTMLElement {
         <style>
             .tags-container{
                 display: flex;
-                gap: 2px; 
+                gap: 3px; 
                 flex-wrap: wrap;
+                height: 5vh;
             }
             .tag{
                 background-image: url('assets/tag-shape.svg');
                 background-color: transparent;
-                background-size: cover;
-                padding: 3px 8px;
+                background-size: 100% 100%;
+                width: 10vw;
+                aspect-ratio: 10 / 3;
+                align-content: center;
                 border-radius: 4px;
-                font-size: 15px;
-                font-weight: bold;
+                font-size: 20px;
+                font-weight: 200;
                 color: #FFF;
                 text-align: center;
                 font-family: 'Black Ops One';
-                font-style: normal;
-                font-weight: 400;
-                line-height: normal;
             }
         </style>
         <div class="tags-container">
@@ -140,8 +167,6 @@ replayBtn.addEventListener('click', (event) => {
 });
 
 
-
-
 class FinalCardDisplay extends HTMLElement {
     constructor(){ 
         super(); 
@@ -186,6 +211,7 @@ class FinalCardDisplay extends HTMLElement {
                 display: flex;
                 width: 100%;
                 color: #FFF;
+                margin: 0;
                 flex-direction: column;
                 justify-content: center;
                 position: absolute;
@@ -198,7 +224,7 @@ class FinalCardDisplay extends HTMLElement {
             }
             .final-card-disc{
                 position: absolute;
-                inset: 65% 8% 23% 10%;
+                inset: 59% 8% 23% 10%;
                 width: 100%;
                 font-size: 1em;
                 color: #FFF;
@@ -267,10 +293,13 @@ class FinalCardDisplay extends HTMLElement {
 
             if (currentActive) {
                 currentActive.classList.remove('active');
+                updateBeatBlock(false);
             }
 
-            if(currentActive != this)
+            if(currentActive != this){
                 this.classList.add('active');
+                updateBeatBlock(true);
+            }
 
         });
     }
@@ -332,27 +361,12 @@ const manager = document.getElementById('queue-manager');
 
 document.getElementById('slider-2d').addEventListener('click', () => {
     manager.switchMode('2d');
+    updateBeatBlock(false);
 });
 
 document.getElementById('slider-3d').addEventListener('click', () => {
     manager.switchMode('3d');
-});
-
-const final = document.getElementById('finalfinal');
-const confirms = document.getElementById('confirms');
-const happy = document.getElementById('happy');
-
-confirms.addEventListener('sliceComplete', () => {
-    setTimeout(function() {
-        finalCards.style.display = 'none'
-        final.style.display = 'block';
-    }, 2000);
-    
-
-    setTimeout(function() {
-        final.style.display = 'none';
-        happy.style.display = 'block';
-    }, 60000);
+    updateBeatBlock(false);
 });
 
 
