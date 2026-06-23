@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">        
+        <style>
+            body{
+                height: 100vh;
+                width: 100vw;
+                min-width: 250px;
+                display:flex;
+                justify-content: center;
+                background: url('/media/beat-saber-bg.jpg') rgb(0, 0, 0) 50% / 100% 160%;
+            }
+
+            .video-card-container {
+                display:flex;
+                min-width: 200px;
+                max-width: 80%;
+                width: 100%;
+                height: 70%;
+                margin: 50px 10px 50px 10px;
+                perspective: 1200px;
+            }
+
+            .video-card{
+                height: 100%;
+                width: 100%;
+                position: relative;
+                transform-style: preserve-3d;
+                transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+                cursor: pointer;
+            }
+            .video-card.active {
+                transform: rotateY(180deg);
+            }
+            .card-front, .card-back {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                backface-visibility: hidden;
+                border-radius: 10px;
+                background-position: center;
+                background-size: cover;
+                overflow: hidden;
+            }
+            
+            .card-front{
+                z-index: 2;
+                transform: rotateY(0deg);
+            }
+
+            .card-back{
+                transform: rotateY(180deg);
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                padding: 1px;
+            }
+            
+            .card-back::before{
+                content: ' ';
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(0deg, rgba(0, 0, 0, 0.80) 50%, rgba(0, 0, 0, 0.20) 100%);
+                z-index: 1;
+            }
+
+            .video-card-bnts {
+                height: 10%;
+                padding: 5px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                z-index: 3;
+            }
+            .next-bnt{
+                height: 100%;
+                aspect-ratio: 1 / 1;
+                background-color: transparent;
+                background-image: url('/assets/next-button.png');
+                background-size: cover;
+                border-radius: 1px;
+                background-position: center;
+                border: none;
+                background-repeat: no-repeat;
+                cursor: pointer;
+                
+            }
+            .replay-bnt{
+                height: 100%;
+                aspect-ratio: 1 / 1;
+                border-radius: 1px;
+                background-color: transparent;
+                background-image: url('/assets/replay-button.png');
+                background-size: cover;
+                cursor: pointer;
+                border: none;
+            }
+            .video-card-text{
+                margin-top: auto;
+                background-color: transparent;
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
+                color: white;
+                z-index: 3;
+
+            }
+            .video-card-title{
+                margin: 25% 0 5px 0;
+                font-size: 20px;
+
+            }
+            .video-card-des {
+                font-size: 10px;
+                margin: 0 0  10px 0;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="video-card-container">
+            <div class="video-card" id = "videoCard">
+                <div class="card-front" id="cardFront"></div>
+                
+                <div class="card-back" id="cardBack">
+                    <div class="video-card-bnts">
+                        <button class="replay-bnt" id="replayBtn"></button>
+                        <button class="next-bnt" id="nextBtn"></button>
+                    </div>
+                    <div class="video-card-text">
+                        <p class="video-card-title" id="cardTitle"></p>
+                        <p class="video-card-des" id="cardDesc"></p>
+                        <video-tags id="cardTags"></video-tags> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            class VideoTags extends HTMLElement {
+                constructor(){ 
+                    super(); 
+                    this.attachShadow({ mode: "open" });
+                }
+                set tag(tagArray){
+                    this.render(tagArray);
+                }
+
+                render(tagArray) {
+                    if(!tagArray || !Array.isArray(tagArray)) return;
+
+                    const tagsHTML = tagArray.map(tag => `<span class="tag">${tag}</span>`).join('');
+                    
+                    this.shadowRoot.innerHTML = `
+                    <style>
+                        .tags-container{
+                            display: flex;
+                            gap: 2px; 
+                            flex-wrap: wrap;
+                        }
+                        .tag{
+                            background-image: url('/assets/tag-shape.svg');
+                            background-color: transparent;
+                            background-size: cover;
+                            padding: 3px 8px;
+                            border-radius: 4px;
+                            font-size: 7px;
+                            font-weight: bold;
+                            color: #FFF;
+                            text-align: center;
+                            font-family: 'Black Ops One';
+                            font-style: normal;
+                            font-weight: 400;
+                            line-height: normal;
+                        }
+                    </style>
+                    <div class="tags-container">
+                        ${tagsHTML}
+                    </div>
+                    `;
+                }
+            }
+            customElements.define('video-tags', VideoTags);
+
+            let playlistData = [];
+            let currentIndex = 0;
+
+            const videoCard = document.getElementById('videoCard');
+            const cardFront = document.getElementById('cardFront');
+            const cardBack = document.getElementById('cardBack');
+            
+            const cardTitle = document.getElementById('cardTitle');
+            const cardDesc = document.getElementById('cardDesc');
+            const cardTags = document.getElementById('cardTags');
+            const nextBtn = document.getElementById('nextBtn');
+            const replayBtn = document.getElementById('replayBtn');
+
+            function displayCard(index) {
+                if(playlistData.length === 0) return;
+
+                const data = playlistData[index];
+
+                cardTitle.textContent = data.title;
+                cardDesc.textContent = data.description;
+
+                cardFront.style.background = `url(${data.imageSrc}) lightgray 50% / cover no-repeat`;
+                cardBack.style.background = `url(${data.imageSrc}) lightgray 50% / cover no-repeat`;
+                
+                cardTags.tag = data.tagText;
+            }
+
+            videoCard.addEventListener('click', (event) => {
+                if(event.target.tagName === 'BUTTON') return;
+                videoCard.classList.toggle('active');
+            });
+
+            nextBtn.addEventListener('click', () => {
+                if(playlistData.length === 0) return;
+
+                currentIndex = (currentIndex + 1) % playlistData.length;
+                displayCard(currentIndex);
+            });
+
+            replayBtn.addEventListener('click', () => {
+
+            });
+
+            fetch('games.json')
+                .then(response => response.json())
+                .then(data => {
+                    playlistData = data; 
+                    displayCard(currentIndex); // Initialize the first layout
+                });
+
+        </script>
+    </body>
+</html>
