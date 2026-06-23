@@ -38,7 +38,7 @@
 
 /* ###video cards### */
 #card-overlay {
-    display: block;
+    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -174,10 +174,11 @@
     margin-left: 40vw;
     width: 250px;
     font-size: 50px;
-    margin-top: 20px;
+    margin-top: 30px;
     align-self: center;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 }
 
 .confirm:hover{

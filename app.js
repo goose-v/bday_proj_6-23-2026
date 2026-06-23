@@ -168,10 +168,11 @@ class FinalCardDisplay extends HTMLElement {
             .svg-bg {
                 display: none;
                 position: absolute;
-                transform: scale(1.25);
-                
-                transform-origin: center;
+                inset: 0;
+                max-height: 50vh;
+                min-height: 50vh;
                 z-index: -1;
+                overflow: hidden;
             }
 
             
@@ -229,18 +230,18 @@ class FinalCardDisplay extends HTMLElement {
 
         <div class="final-card">
             <div class="svg-bg">
-                <svg viewBox="-10 -10 150 190" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <svg viewBox="0 0 100 250" preserveAspectRatio="fit" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g filter="url(#filter0_g_23_42)">
-                        <rect x="5%" y="5%" width="80%" height="90%" rx="10" fill="url(#pattern0_23_42)" fill-opacity="0.2"/>
-                        <rect x="5%" y="5%" width="80%" height="90%" rx="10" fill="black" fill-opacity="0.2"/>
-                        <rect x="5%" y="5%" width="80%" height="90%" rx="9.5" stroke="black"/>
+                        <rect x="5" y="5" width="100" height="250" rx="10" fill="url(#pattern0_23_42)" fill-opacity="0.2"/>
+                        <rect x="5" y="5" width="100" height="250" rx="10" fill="black" fill-opacity="0.2"/>
+                        <rect x="5" y="5" width="100" height="250" rx="9.5" stroke="black"/>
                     </g>
                     <defs>
-                        <filter id="filter0_g_23_42" x="0" y="1.23978e-05" width="100%" height="100%" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+                        <filter id="filter0_g_23_42" x="0" y="0" width="100" height="250" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
                             <feFlood flood-opacity="0" result="BackgroundImageFix"/>
                             <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
                             <feTurbulence type="fractalNoise" baseFrequency="0.55555558204650879 0.55555558204650879" numOctaves="3" seed="1558" />
-                            <feDisplacementMap in="shape" scale="30.399999618530273" xChannelSelector="R" yChannelSelector="G" result="displacedImage" width="100%" height="100%" />
+                            <feDisplacementMap in="shape" scale="30.399999618530273" xChannelSelector="R" yChannelSelector="G" result="displacedImage" width="100" height="250" />
                             <feMerge result="effect1_texture_23_42">
                             <feMergeNode in="displacedImage"/>
                             </feMerge>
