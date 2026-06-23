@@ -11,7 +11,7 @@
     },
     {
         "title": "Katana ZERO",
-        "videoSrc": "https://github.com/goose-v/bday_proj_6-23-2026/releases/download/media/katana_zero.mp4",
+        "videoSrc": "https://cdn.jsdelivr.net/gh/goose-v/bday_proj_6-23-2026@main/media/katana_zero.mp4",
         "imageSrc": "media/katana_zero.jpg",
 
         "description": "“Katana ZERO is a stylish neo-noir, action-platformer featuring breakneck action and instant-death combat. Slash, dash, and manipulate time to unravel your past in a beautifully brutal acrobatic display.”",
@@ -21,7 +21,7 @@
     },
     {
         "title": "House",
-        "videoSrc": "https://github.com/goose-v/bday_proj_6-23-2026/releases/download/media/house.mp4",
+        "videoSrc": "https://cdn.jsdelivr.net/gh/goose-v/bday_proj_6-23-2026@main/media/house.mp4",
         "imageSrc": "media/house.jpg",
 
         "description": "“Try to survive through the night in a house that's trying its best to kill you and your family.”",
@@ -31,7 +31,7 @@
     },
     {
         "title": "Portal 2",
-        "videoSrc": "https://github.com/goose-v/bday_proj_6-23-2026/releases/download/media/portal2.mp4",
+        "videoSrc": "https://cdn.jsdelivr.net/gh/goose-v/bday_proj_6-23-2026@main/media/portal2.mp4",
         "imageSrc": "media/portal2.jpg",
 
         "description": "“Set in the mysterious Aperture Science Laboratories,player must solve physical puzzles and challenges by opening portals to maneuvering objects, and themselves, through space.”",
@@ -41,7 +41,7 @@
     },
     {
         "title": "Inscryption",
-        "videoSrc": "https://github.com/goose-v/bday_proj_6-23-2026/releases/download/media/inscryption.mp4",
+        "videoSrc": "https://cdn.jsdelivr.net/gh/goose-v/bday_proj_6-23-2026@main/media/inscryption.mp4",
         "imageSrc": "media/inscryption.jpg",
 
         "description": "“An inky black card-based odyssey that blends the deckbuilding roguelike, escape-room style puzzles, and psychological horror into a blood-laced smoothie. Darker still are the secrets inscrybed upon the cards…”",
