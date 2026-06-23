@@ -5,9 +5,10 @@ import { CSG } from 'three-csg-ts';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
+import { ShaderPass } from 'three/addons/postprocessing/ShaderPass.js';
 
 // 1. Target the specific div
-const container = document.getElementById('slice-button');
+const container = document.getElementById('confirms');
 
 // Initialize scene, camera, and renderer
 const scene = new THREE.Scene();
@@ -22,7 +23,7 @@ const renderer = new THREE.WebGLRenderer({
     alpha: true, // Crucial for transparent background
 });
 
-renderer.setClearColor(0x000000, 0); // Transparent clear color
+// renderer.setClearColor(0x000000, 0); // Transparent clear color
 renderer.setSize(container.clientWidth, container.clientHeight);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2)); 
 renderer.outputColorSpace = THREE.SRGBColorSpace; 
@@ -39,24 +40,105 @@ const bloomPass = new UnrealBloomPass(
     0.1   // Bloom Threshold
 );
 
-const composer = new EffectComposer(renderer);
+const renderTarget = new THREE.WebGLRenderTarget(
+    container.clientWidth, 
+    container.clientHeight, 
+    { format: THREE.RGBAFormat }
+);
+
+const composer = new EffectComposer(renderer, renderTarget);
+
+// --- 3. THE ALPHA PRESERVER SHADER ---
+// This shader extracts the clean alpha map BEFORE the bloom pass overwrites it
+let alphaTexture;
+const saveAlphaShader = {
+    uniforms: { tDiffuse: { value: null } },
+    vertexShader: `
+        varying vec2 vUv;
+        void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
+    `,
+    fragmentShader: `
+        uniform sampler2D tDiffuse;
+        varying vec2 vUv;
+        void main() {
+            vec4 color = texture2D(tDiffuse, vUv);
+            // Output only the alpha channel as a grayscale map
+            gl_FragColor = vec4(color.a, color.a, color.a, 1.0);
+        }
+    `
+};
+
+const saveAlphaPass = new ShaderPass(saveAlphaShader);
+// Render this pass to a secondary target so we can read it later
+const alphaRenderTarget = new THREE.WebGLRenderTarget(container.clientWidth, container.clientHeight);
+
+// --- 4. THE FINAL COMBINER SHADER ---
+// This takes the glowing bloom image and re-injects the original saved alpha map
+const combineShader = {
+    uniforms: {
+        tDiffuse: { value: null },
+        tAlpha: { value: null }
+    },
+    vertexShader: `
+        varying vec2 vUv;
+        void main() { vUv = uv; gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0); }
+    `,
+    fragmentShader: `
+        uniform sampler2D tDiffuse;
+        uniform sampler2D tAlpha;
+        varying vec2 vUv;
+        void main() {
+            vec4 bloomColor = texture2D(tDiffuse, vUv);
+            float originalAlpha = texture2D(tAlpha, vUv).r;
+            
+            // CRITICAL STEP: The alpha is either the object's original shape 
+            // OR the brightness of the glowing bloom spilling outside of it.
+            float bloomBrightness = max(max(bloomColor.r, bloomColor.g), bloomColor.b);
+            float finalAlpha = max(originalAlpha, bloomBrightness);
+            
+            gl_FragColor = vec4(bloomColor.rgb, finalAlpha);
+        }
+    `
+};
+const combinePass = new ShaderPass(combineShader);
+combinePass.material.transparent = true;
+
+// --- 5. ADD EVERYTHING TO THE COMPOSER CHAIN ---
 composer.addPass(renderScene);
+
+// Trick: Hook into the pipeline to copy the clean alpha map right after rendering the scene
+renderScene.renderToScreen = false;
+const originalRender = renderScene.render.bind(renderScene);
+renderScene.render = function(renderer, writeBuffer, readBuffer, deltaTime, maskActive) {
+    originalRender(renderer, writeBuffer, readBuffer, deltaTime, maskActive);
+    // Copy the clean alpha mask out into our storage target
+    saveAlphaPass.render(renderer, alphaRenderTarget, readBuffer, deltaTime, maskActive);
+};
+
+// Add bloom pass (which ruins the alpha)
 composer.addPass(bloomPass);
+
+// Add the combiner pass (which fixes the alpha)
+combinePass.uniforms['tAlpha'].value = alphaRenderTarget.texture;
+composer.addPass(combinePass);
 
 // Add lighting
 const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
 scene.add(ambientLight);
 
-const directionalLight = new THREE.DirectionalLight(0xffffff, 2.0);
-directionalLight.position.set(5, 10, 7);
-scene.add(directionalLight);
+const directionalLight1 = new THREE.DirectionalLight(0xffffff, 3.0);
+directionalLight1.position.set(3, 10, 7);
+const directionalLight2 = new THREE.DirectionalLight(0xffffff, 4.0);
+directionalLight2.position.set(5,-20,-15);
+scene.add(directionalLight1);
+scene.add(directionalLight2);
 
 // Load model
 const loader = new GLTFLoader();
 let targetMesh = null;
 
 loader.load(
-    '../model/beat_saber_block_fix.glb', 
+    'model/beat_saber_block_fix.glb', 
     (gltf) => {
         targetMesh = gltf.scene;
         targetMesh.traverse((node) => {
@@ -65,7 +147,7 @@ loader.load(
                 node.receiveShadow = true;
                 if (node.material && node.material.name === 'Material.003') {
                     node.material.emissive = new THREE.Color(0x0fffff);
-                    node.material.emissiveIntensity = 0.5; 
+                    node.material.emissiveIntensity = 0.1; 
                     node.material.color = new THREE.Color(0x00ffff);
                 } else {
                     node.material.color = new THREE.Color(0x0044aa); 
@@ -283,5 +365,6 @@ function animate() {
     requestAnimationFrame(animate);
     controls.update();
     composer.render();
+    //renderer.render(scene, camera);
 }
 animate();

@@ -230,7 +230,7 @@ class FinalCardDisplay extends HTMLElement {
 
         <div class="final-card">
             <div class="svg-bg">
-                <svg viewBox="0 0 100 250" preserveAspectRatio="fit" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <svg viewBox="0 0 100 250" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                     <g filter="url(#filter0_g_23_42)">
                         <rect x="5" y="5" width="100" height="250" rx="10" fill="url(#pattern0_23_42)" fill-opacity="0.2"/>
                         <rect x="5" y="5" width="100" height="250" rx="10" fill="black" fill-opacity="0.2"/>
@@ -340,16 +340,18 @@ document.getElementById('slider-3d').addEventListener('click', () => {
 
 const final = document.getElementById('finalfinal');
 const confirms = document.getElementById('confirms');
+const happy = document.getElementById('happy');
 
-confirms.addEventListener('click', () => {
-    finalCards.style.display = 'none'
-    final.style.display = 'block';
+confirms.addEventListener('sliceComplete', () => {
+    setTimeout(function() {
+        finalCards.style.display = 'none'
+        final.style.display = 'block';
+    }, 2000);
+    
 
     setTimeout(function() {
-        
         final.style.display = 'none';
-        
-        document.getElementById('happy').style.display = 'block';
+        happy.style.display = 'block';
     }, 60000);
 });
 

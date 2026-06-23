@@ -12,10 +12,5 @@ body {
     font-family: sans-serif;
 }
 
-final-card-manager {
-    margin: 10px;
-    display: flex; 
-    justify-content: space-around;
-    flex-wrap: wrap; 
-}
+
 

@@ -167,23 +167,15 @@
     z-index: 30;
 }
 
-#confirms {
-    background-color: #0068B8;
-    border: none;
-    color: white;
-    margin-left: 40vw;
-    width: 250px;
-    font-size: 50px;
-    margin-top: 30px;
-    align-self: center;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
+.scene-container {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    top: 80vh;
+    left: 75vw;
+    cursor: crosshair;
 }
 
-.confirm:hover{
-    opacity: 60%;
-}
 .slider{
     position: relative;
     display: inline-flex;
@@ -259,6 +251,14 @@
 .slider button:not(.active-text) {
     color: #ccc;
 }
+
+final-card-manager {
+    margin: 10px;
+    display: flex; 
+    justify-content: space-around;
+    flex-wrap: wrap; 
+}
+
 
 /* ###finalfinal### */
 #finalfinal {

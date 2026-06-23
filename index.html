@@ -11,6 +11,16 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Tilt+Neon&display=swap" rel="stylesheet">
 
+        <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.1/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.1/examples/jsm/",
+                "three-csg-ts": "https://unpkg.com/three-csg-ts@3.1.11/lib/esm/index.js"
+            }
+        }
+        </script>
+
     </head>
     <body> 
         <div class="begin-page" id="start-page">
@@ -50,7 +60,8 @@
                 <button id="slider-3d">3D</button>
             </div>
             <final-card-manager id="queue-manager" src="games.json"></final-card-manager>
-            <button id="confirms">this one!</button>
+            <div id="confirms" class="scene-container"></div>
+            <!-- <button id="confirms">this one!</button> -->
         </div>
 
         <div id="finalfinal">wait...</div>
@@ -58,5 +69,6 @@
         <div id="happy">Happy Birthday!</div>
 
         <script src="app.js"></script>
+        <script type="module" src="beatSaberBlock.js"></script>
     </body>
 </html>
