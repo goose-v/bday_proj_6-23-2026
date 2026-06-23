@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title></title>
+        <link rel="stylesheet" href="/stylesheets/button.css">
+        <link rel="stylesheet" href="/stylesheets/general.css">
+    
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+            
+    </head>
+    <body> 
+        <div class="begin-page" id="start-page">
+            <button class="play-bnt" id="main-play-btn">play</button>
+        </div>
+
+        <video id="main-video" playsinline></video>
+
+        <div id="card-overlay">
+            <div class="video-card-container">
+                <div class="video-card" id = "videoCard">
+                    <div class="card-front" id="cardFront"></div>
+                    
+                    <div class="card-back" id="cardBack">
+                        <div class="video-card-bnts">
+                            <button class="replay-bnt" id="replayBtn"></button>
+                            <button class="next-bnt" id="nextBtn"></button>
+                        </div>
+                        <div class="video-card-text">
+                            <p class="video-card-title" id="cardTitle"></p>
+                            <p class="video-card-des" id="cardDesc"></p>
+                            <video-tags id="cardTags"></video-tags> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="final-cards" id="final-select">
+            <div class="slider" id="toggle-container">
+                <div class="bg-layer bg-rough"></div>
+                <div class="bg-layer bg-smooth"></div>
+
+                <div class="pill"></div>
+
+                <button id="slider-2d" class="active-text">2D</button>
+                <button id="slider-3d">3D</button>
+            </div>
+            <final-card-manager id="queue-manager" src="games.json"></final-card-manager>
+        </div>
+        <script src="app.js"></script>
+        
+    </body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .slider{
+                position: relative;
+                display: inline-flex;
+                align-items: center;
+                width: 200px;
+                padding: 1px;
+            }
+            .bg-layer{
+                position:absolute;
+                width:100%;
+                height:100%;
+                transition: opacity 0.3s ease-in-out;
+                z-index: 0;
+            }
+            .bg-rough{
+                background-image: url('/assets/slider-2d-bg.svg');
+                background-size: 100% 100%;
+                background-position: center;
+                opacity: 1;
+            }
+            .bg-smooth{
+                background-image: url('/assets/slider-3d-bg.svg');
+                background-size: 100% 100%;
+                background-position: center;
+                opacity: 0;
+            }
+            .slider.active-3d .bg-rough{
+                opacity: 0;
+            }
+            .slider.active-3d .bg-smooth{
+                opacity: 1;
+            }
+
+            .pill{
+                position: absolute;
+                border-radius: 10px;
+                top: 5px;
+                left:1.96px;
+                width: calc(50%);
+                height: 75%;
+                background: #0068B8;
+                border:none;
+                border-radius: 20px;
+                transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+                z-index: 1;
+                box-shadow: 1.5px 3.5px 6px 0 rgba(255, 254, 254, 0.25);
+
+            }
+
+            .slider.active-3d .pill{
+                transform: translateX(100%);
+            }
+
+            .slider button{
+                flex: 1;
+                position: relative;
+                z-index: 2;
+                background: transparent;
+                border: none;
+                color: #FFF;
+                font-size: 1.2rem;
+                font-family: "Tilt Neon";
+                cursor: pointer;
+                border-radius: 10px;
+                outline: none;
+                transition: color 0.3s ease;
+                padding: 5px 0;
+            }
+
+            .slider button:not(.active-text) {
+                color: #ccc;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="slider" id="toggle-container">
+            <div class="bg-layer bg-rough"></div>
+            <div class="bg-layer bg-smooth"></div>
+
+            <div class="pill"></div>
+
+            <button id="slider-2d" class="active-text">2D</button>
+            <button id="slider-3d">3D</button>
+        </div>
+    </body>
+
+    <script>
+        const container = document.getElementById('toggle-container');
+        const btn2d = document.getElementById('slider-2d');
+        const btn3d = document.getElementById('slider-3d');
+
+        btn2d.addEventListener('click', () => {
+            container.classList.remove('active-3d');
+            btn2d.classList.add('active-text');
+            btn3d.classList.remove('active-text');
+        });
+
+        btn3d.addEventListener('click', () => {
+            container.classList.add('active-3d');
+            btn3d.classList.add('active-text');
+            btn2d.classList.remove('active-text');
+        });
+    </script>
+</html>

@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap" rel="stylesheet">
+
+        <style>
+            .final-card {
+                position: relative;
+                width: 90px;
+                height: 109px;
+                border-radius: 10px;
+                cursor: pointer;
+                background: linear-gradient(0deg, rgba(0, 0, 0, 0.80) 0%, rgba(0, 0, 0, 0.20) 100%), url(${data.imageSrc}) lightgray 50% / cover no-repeat;
+border: 1px solid #000;
+                background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), url(${data.imageSrc}) lightgray 50% / cover no-repeat;                z-index: 0;
+            }
+            .final-card.active{
+                border: 1px solid #000;
+                background: linear-gradient(0deg, rgba(0, 0, 0, 0.20) 0%, rgba(0, 0, 0, 0.20) 100%), url(${data.imageSrc}) lightgray 50% / cover no-repeat;
+            }
+            .final-card-title{
+                display: flex;
+                width: 47px;
+                height: 20px;
+                color: #FFF;
+                flex-direction: column;
+                justify-content: center;
+                position: absolute;
+                inset: 50px 33px 33px 10px;
+                width: 47px;
+                height: 20px;
+                font-family: "Tilt Neon";
+                font-size: 10px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+            }
+            .final-card-disc{
+                position: absolute;
+                inset: 63px 8px 23px 10px;
+                width: 72px;
+                height: 20px;
+                color: #FFF;
+                font-family: "Tilt Neon";
+                font-size: 5px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                display: flex;
+                width: 72px;
+                height: 20px;
+                flex-direction: column;
+                justify-content: center;
+            }
+            .final-card-tag{
+                position: absolute;
+                inset: 84px 58px 20px 10px;
+                width: 21.16px;
+                height: 5px;
+                border-radius: 10px;
+                background: #D9D9D9;
+                border:none;
+                color: #000;
+                text-align: center;
+                font-family: "Tilt Neon";
+                font-size: 3.5px;
+                font-style: normal;
+                font-weight: 400;
+                line-height: normal;
+                display: flex;
+                width: 25px;
+                height: 6px;
+                flex-direction: column;
+                justify-content: center;
+            }
+        </style>
+    </head>
+    <body style="background-color: black;">
+        <div class="final-card">
+            <p class="final-card-title">Portal 2</p>
+            <p class="final-card-disc"> 3D &middot Puzzle solving  </p>
+            <button class="final-card-tag">Light</button>
+        </div>
+    </body>
+</html>

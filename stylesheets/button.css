@@ -1,0 +1,242 @@
+/* ###begin page### */
+.begin-page {
+    position: absolute;
+    z-index: 10;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.play-bnt {
+    cursor: pointer;
+    flex-grow: 0.5;
+    align-self: strech;
+    padding-bottom:20px;
+    font-size: 100px;
+    
+    border: none;
+    border-radius: 10px;
+    background-color: #0068B8;
+}
+
+.play-bnt:active {
+    opacity: 60%;
+}
+
+
+/* ###video### */
+#main-video {
+    display: none;
+    width: 100vw;
+    height: 100vh;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 5;
+}
+
+/* ###video cards### */
+#card-overlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    background: url('/media/beat-saber-bg.jpg') rgb(0, 0, 0) 50% / 100% 160%;
+    z-index: 20;
+}
+
+.video-card-container {
+    display:flex;
+    min-width: 200px;
+    max-width: 80%;
+    width: 100%;
+    height: 70%;
+    margin: 50px 10px 50px 10px;
+    perspective: 1200px;
+}
+
+.video-card{
+    height: 100%;
+    width: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+}
+.video-card.active {
+    transform: rotateY(180deg);
+}
+.card-front, .card-back {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 10px;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+}
+
+.card-front{
+    z-index: 2;
+    transform: rotateY(0deg);
+}
+
+.card-back{
+    transform: rotateY(180deg);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1px;
+}
+
+.card-back::before{
+    content: ' ';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.80) 50%, rgba(0, 0, 0, 0.20) 100%);
+    z-index: 1;
+}
+
+.video-card-bnts {
+    height: 10%;
+    padding: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    z-index: 3;
+}
+.next-bnt{
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    background-color: transparent;
+    background-image: url('/assets/next-button.png');
+    background-size: cover;
+    border-radius: 1px;
+    background-position: center;
+    border: none;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    
+}
+.replay-bnt{
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 1px;
+    background-color: transparent;
+    background-image: url('/assets/replay-button.png');
+    background-size: cover;
+    cursor: pointer;
+    border: none;
+}
+.video-card-text{
+    margin-top: auto;
+    background-color: transparent;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    color: white;
+    z-index: 3;
+
+}
+.video-card-title{
+    margin: 25% 0 5px 0;
+    font-size: 20px;
+
+}
+.video-card-des {
+    font-size: 10px;
+    margin: 0 0  10px 0;
+}
+
+/* ###TOGGLE ON THE FINAL PAGE### */
+#final-select {
+    display: none;
+    padding: 90px 20px;
+    width: 100vw;
+    height: 70vh;
+    background: url('/media/beat-saber-bg.jpg') rgb(0, 0, 0) 50% / 100% 160%;
+    z-index: 30;
+}
+
+
+.slider{
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    margin: 10px;
+    width: 200px;
+    padding: 1px;
+}
+.bg-layer{
+    position:absolute;
+    width:100%;
+    height:100%;
+    transition: opacity 0.3s ease-in-out;
+    z-index: 0;
+}
+.bg-rough{
+    background-image: url('/assets/slider-2d-bg.svg');
+    background-size: 100% 100%;
+    background-position: center;
+    opacity: 1;
+}
+.bg-smooth{
+    background-image: url('/assets/slider-3d-bg.svg');
+    background-size: 100% 100%;
+    background-position: center;
+    opacity: 0;
+}
+.slider.active-3d .bg-rough{
+    opacity: 0;
+}
+.slider.active-3d .bg-smooth{
+    opacity: 1;
+}
+
+.pill{
+    position: absolute;
+    border-radius: 10px;
+    top: 5px;
+    left:1.96px;
+    width: calc(50%);
+    height: 75%;
+    background: #0068B8;
+    border:none;
+    border-radius: 20px;
+    transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+    z-index: 1;
+    box-shadow: 1.5px 3.5px 6px 0 rgba(255, 254, 254, 0.25);
+
+}
+
+.slider.active-3d .pill{
+    transform: translateX(100%);
+}
+
+.slider button{
+    flex: 1;
+    position: relative;
+    z-index: 2;
+    background: transparent;
+    border: none;
+    color: #FFF;
+    font-size: 1.2rem;
+    font-family: "Tilt Neon";
+    cursor: pointer;
+    border-radius: 10px;
+    outline: none;
+    transition: color 0.3s ease;
+    padding: 5px 0;
+}
+
+.slider button:not(.active-text) {
+    color: #ccc;
+}
