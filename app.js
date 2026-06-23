@@ -20,7 +20,7 @@ class VideoTags extends HTMLElement {
                 flex-wrap: wrap;
             }
             .tag{
-                background-image: url('/assets/tag-shape.svg');
+                background-image: url('assets/tag-shape.svg');
                 background-color: transparent;
                 background-size: cover;
                 padding: 3px 8px;
